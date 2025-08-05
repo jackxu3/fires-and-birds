@@ -2,4 +2,14 @@
 title: "About"
 ---
 
-About this site
+I am Jack Xu, a thirteen year old who loves birds!
+
+My GitHub account: <https://www.github.com/jackxu3>
+
+My email: <bluebird.jack.xu@gmail.com>
+
+My project is about predicting wildfire proximity affects migratory birds with altitude, speed, and direction. The underlying R code of the plots were written by AI tools.
+
+GitHub repository link: <https://github.com/jackxu3/fires-and-birds>
+
+This project was created as a part of [Kane's Free Data Science Bootcamp](https://bootcamp.davidkane.info/).

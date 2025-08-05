@@ -3,3 +3,87 @@ title: "Model"
 format: html
 ---
 
+**Linear Regression Model**
+$$
+y = \beta_0 + \beta_1 \cdot \text{speed\_2d} + \beta_2 \cdot \text{altitude} + \beta_3 \cdot \text{direction}
+$$
+
+**Fitted**
+$$
+\hat{y} = 0.244 + 0.159 \cdot \text{speed\_2d} - 0.284 \cdot \text{altitude} - 0.0209 \cdot \text{direction}
+$$
+
+**Statistics**
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+library(tidyverse)
+library(tidymodels)
+library(data.table)
+library(sf)
+library(caret)
+library(randomForest)
+library(ranger)
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# read data
+bird_data <- fread("data/bird_migration.csv")
+wildfire_data <- fread("data/wildfires_to_plot.csv")  # Already filtered by time
+
+# convert to sf objects
+bird_sf <- st_as_sf(bird_data, coords = c("longitude", "latitude"), crs = 4326)
+wildfire_sf <- st_as_sf(wildfire_data, coords = c("Longitude", "Latitude"), crs = 4326)
+
+# transform to projected CRS (UTM Zone 10N - use a different zone if not appropriate)
+bird_sf <- st_transform(bird_sf, crs = 32610)
+wildfire_sf <- st_transform(wildfire_sf, crs = 32610)
+
+# match to nearest fire within 10 km
+nn <- st_nearest_feature(bird_sf, wildfire_sf)
+distances <- st_distance(bird_sf, wildfire_sf[nn, ], by_element = TRUE)
+
+bird_sf$fire_id <- ifelse(as.numeric(distances) < 10000, wildfire_sf$id[nn], NA)
+bird_sf$fire_lat <- ifelse(!is.na(bird_sf$fire_id), st_coordinates(wildfire_sf[nn, ])[,2], NA)
+bird_sf$fire_lon <- ifelse(!is.na(bird_sf$fire_id), st_coordinates(wildfire_sf[nn, ])[,1], NA)
+bird_sf$distance_to_fire_m <- ifelse(!is.na(bird_sf$fire_id), as.numeric(distances), NA)
+
+# create model dataset
+bird_model_data <- bird_sf %>%
+  st_drop_geometry() %>%
+  mutate(
+    fire_nearby = ifelse(!is.na(fire_id), 1, 0),
+    fire_nearby = factor(fire_nearby)  # ensure classification models work
+  ) %>%
+  select(-fire_id)
+
+# clean and ensure numeric
+model_data <- bird_model_data %>%
+  filter(!is.na(speed_2d) & !is.na(altitude) & !is.na(direction)) %>%
+  mutate(
+    speed_2d = as.numeric(speed_2d),
+    altitude = as.numeric(altitude),
+    direction = as.numeric(direction)
+  )
+
+# standardize numeric predictors
+model_data <- model_data %>%
+  mutate(across(c(speed_2d, altitude, direction, distance_to_fire_m), scale))
+
+# split train/test data
+set.seed(42)
+train_index <- createDataPartition(model_data$fire_nearby, p = 0.7, list = FALSE)
+train_data <- model_data[train_index, ]
+test_data <- model_data[-train_index, ]
+
+# build models
+
+# linear regression: predict distance
+lm_model <- lm(distance_to_fire_m ~ speed_2d + altitude + direction, data = train_data)
+tidy(lm_model, conf.int = TRUE)
+```
