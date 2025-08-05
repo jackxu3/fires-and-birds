@@ -1,0 +1,53 @@
+---
+title: "The Effects of Wildfires on Bird Migration Routes"
+---
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+library(tidyverse)
+library(data.table)
+library(sf)
+library(caret)
+library(randomForest)
+library(ranger)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+# plot bird migration tracks, and wildfires between 2013_07_14_to_2014_05_30
+# Read datasets
+wildfires <- read.csv("data/wildfires_to_plot.csv")
+birds <- read.csv("data/bird_migration.csv")
+
+# Preprocess wildfire data
+# Remove rows with missing coordinates
+wildfires <- wildfires %>%
+  filter(!is.na(Longitude) & !is.na(Latitude)) %>%
+  mutate(
+    Longitude = as.numeric(Longitude),
+    Latitude = as.numeric(Latitude)
+  )
+
+# Preprocess bird data
+birds$date_time <- as.POSIXct(birds$date_time, format="%Y-%m-%d %H:%M:%S", tz="UTC")
+
+birds <- birds %>%
+  filter(!is.na(longitude) & !is.na(latitude)) %>%
+  mutate(
+    longitude = as.numeric(longitude),
+    latitude = as.numeric(latitude)
+  )
+
+# Plot bird tracks + all wildfires
+ggplot() +
+  geom_path(data = birds, aes(x = longitude, y = latitude, color = bird_name, group = bird_name), size = 1) +
+  geom_point(data = wildfires, aes(x = Longitude, y = Latitude), color = "red", alpha = 0.4, size = 1) +
+  labs(title = "Migration tracks of birds and all wildfires that occurred within 100 miles during the entire migration period",
+       x = "Longitude", y = "Latitude", color = "Bird") +
+  theme_minimal()
+```
