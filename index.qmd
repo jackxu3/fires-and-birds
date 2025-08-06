@@ -51,3 +51,6 @@ ggplot() +
        x = "Longitude", y = "Latitude", color = "Bird") +
   theme_minimal()
 ```
+
+# Summary
+Wildfires affect migratory routes of birds, particularly affecting their altitude, speed, and direction of flight. I downloaded two datasets from Kaggle about gull migration and global wildfires. We want to understand the relationship between fire proximity and other variables such as speed, altitude, and direction. The outcome modeled is wildfire proximity, a numeric variable, as a linear function of speed, altitude, and direction. Birds with higher proximity to fires were more likely to be have a lower altitude. For each one-unit increase in altitude, the distance to the nearest wildfire decreases by approximately 0.28 units.

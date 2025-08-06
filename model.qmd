@@ -25,6 +25,7 @@ library(sf)
 library(caret)
 library(randomForest)
 library(ranger)
+library(knitr)
 ```
 
 ```{r}
@@ -85,5 +86,12 @@ test_data <- model_data[-train_index, ]
 
 # linear regression: predict distance
 lm_model <- lm(distance_to_fire_m ~ speed_2d + altitude + direction, data = train_data)
-tidy(lm_model, conf.int = TRUE)
+
+# nice-looking and neat table
+tidy_table <- tidy(lm_model, conf.int = TRUE) %>%
+  select(term, estimate, conf.low, conf.high)
+
+kable(tidy_table, digits = 3, caption = "Linear Model Summary with Confidence Intervals")
 ```
+
+This linear regression model predicts wildfire proximity relative to a bird using speed, altutude, and direction predictors. The `direction` term when increased by 1 unit decreases the wildfire proximity by -0.059, with a confidence interval between -0.096	and -0.021. The confidence interval does not pass through 0, making this term significant.
