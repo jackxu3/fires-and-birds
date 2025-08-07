@@ -11,20 +11,20 @@
     "href": "index.html",
     "title": "The Effects of Wildfires on Bird Migration Routes",
     "section": "",
-    "text": "Summary\nWildfires have been affecting migratory routes of birds. I downloaded two datasets from Kaggle about gull migration and global wildfires. We want to understand the relationship between fire proximity and other variables such as speed, altitude, and direction. The outcome modeled is wildfire proximity, a numeric variable, as a linear function. Birds with higher proximity to fires were more likely to be have a lower altitude. For each one-degree counterclockwise increase in direction relative to the east, the model predicts that the distance to the nearest wildfire decreases by approximately 0.059 units with a 95% confidence interval ranging from -0.096 to -0.021."
+    "text": "Summary\nWildfires have been affecting migratory routes of birds. I downloaded two datasets from Kaggle about gull migration and global wildfires. We want to understand the relationship between fire proximity and other variables such as speed, altitude, and direction. The outcome modeled is wildfire proximity, a numeric variable, as a linear function. Birds with higher proximity to fires were more likely to be have a lower altitude. For each one-degree counterclockwise increase in direction relative to the east, the model predicts that the distance to the nearest wildfire decreases by approximately 0.059 miles with a 95% confidence interval ranging from -0.096 to -0.021."
   },
   {
     "objectID": "model.html",
     "href": "model.html",
     "title": "Model",
     "section": "",
-    "text": "Linear Regression Model \\[\ny = \\beta_0 + \\beta_1 \\cdot \\text{speed\\_2d} + \\beta_2 \\cdot \\text{altitude} + \\beta_3 \\cdot \\text{direction}\n\\]\nFitted \\[\n\\hat{y} = 0.244 + 0.159 \\cdot \\text{speed\\_2d} - 0.284 \\cdot \\text{altitude} - 0.0209 \\cdot \\text{direction}\n\\]\nStatistics\n\n\n\nLinear Model Summary with Confidence Intervals\n\n\nterm\nestimate\nconf.low\nconf.high\n\n\n\n\n(Intercept)\n0.018\n-0.020\n0.056\n\n\nspeed_2d\n0.007\n-0.044\n0.059\n\n\naltitude\n0.030\n-0.007\n0.068\n\n\ndirection\n-0.059\n-0.096\n-0.021\n\n\n\n\n\nThis linear regression model predicts wildfire proximity relative to a bird using speed, altutude, and direction predictors. The direction term when increased by 1 unit decreases the wildfire proximity by 0.059, with a 95% confidence interval between -0.096 and -0.021. The confidence interval does not pass through 0, making this term significant."
+    "text": "Linear Regression Model \\[\ny = \\beta_0 + \\beta_1 \\cdot \\text{speed\\_2d} + \\beta_2 \\cdot \\text{altitude} + \\beta_3 \\cdot \\text{direction}\n\\]\nFitted \\[\n\\hat{y} = 0.244 + 0.159 \\cdot \\text{speed\\_2d} - 0.284 \\cdot \\text{altitude} - 0.0209 \\cdot \\text{direction}\n\\]\nStatistics\n\n\n\nLinear Model Summary with Confidence Intervals\n\n\nterm\nestimate\nconf.int\n\n\n\n\n(Intercept)\n0.018\n-0.02, 0.056\n\n\nspeed_2d\n0.007\n-0.044, 0.059\n\n\naltitude\n0.030\n-0.007, 0.068\n\n\ndirection\n-0.059\n-0.096, -0.021\n\n\n\n\n\nThis linear regression model predicts wildfire proximity relative to a bird using speed, altutude, and direction predictors. The direction term when increased by 1 unit decreases the wildfire proximity by 0.059, with a 95% confidence interval between -0.096 and -0.021. The confidence interval does not pass through 0, making this term significant."
   },
   {
     "objectID": "sources.html",
     "href": "sources.html",
     "title": "Sources",
     "section": "",
-    "text": "I got the bird migration dataset and wildfires dataset from Kaggle.\nI only kept the data nearby the bird trackings, but I deleted all data outside the rectangular box."
+    "text": "Both the bird migration dataset and wildfires dataset used in this project came from the website Kaggle.\nI only kept the data nearby the bird trackings, but I deleted the data outside the invisible rectangular bounding box of the wildfires."
   }
 ]
