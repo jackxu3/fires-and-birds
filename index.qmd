@@ -12,6 +12,8 @@ library(sf)
 library(caret)
 library(randomForest)
 library(ranger)
+library(rnaturalearth)
+library(rnaturalearthdata)
 ```
 
 ```{r}
@@ -44,13 +46,31 @@ birds <- birds %>%
   )
 
 # Plot bird tracks + all wildfires
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Plot
 ggplot() +
-  geom_path(data = birds, aes(x = longitude, y = latitude, color = bird_name, group = bird_name), size = 1) +
-  geom_point(data = wildfires, aes(x = Longitude, y = Latitude), color = "red", alpha = 0.4, size = 1) +
-  labs(title = "Migration tracks of birds and all wildfires that occurred within 100 miles during the entire migration period",
-       x = "Longitude", y = "Latitude", color = "Bird") +
+  # Background world map
+  geom_sf(data = world, fill = "gray95", color = "gray70") +
+  
+  # Bird migration paths
+  geom_path(data = birds, aes(x = longitude, y = latitude, color = bird_name, group = bird_name),
+            size = 1) +
+  
+  # Wildfire locations
+  geom_point(data = wildfires, aes(x = Longitude, y = Latitude),
+             color = "red", alpha = 0.4, size = 1) +
+  
+  labs(
+    title = "Migratory birds and wildfires within 100 miles during the whole migration period",
+    x = "Longitude", y = "Latitude", color = "Bird"
+  ) +
+  coord_sf(
+    xlim = c(-40, 40),
+    ylim = c(10, 60)
+  ) +
   theme_minimal()
 ```
 
 # Summary
-Wildfires affect migratory routes of birds, particularly affecting their altitude, speed, and direction of flight. I downloaded two datasets from Kaggle about gull migration and global wildfires. We want to understand the relationship between fire proximity and other variables such as speed, altitude, and direction. The outcome modeled is wildfire proximity, a numeric variable, as a linear function of speed, altitude, and direction. Birds with higher proximity to fires were more likely to be have a lower altitude. For each one-unit increase in altitude, the distance to the nearest wildfire decreases by approximately 0.28 units.
+Wildfires have been affecting migratory routes of birds. I downloaded two datasets from Kaggle about gull migration and global wildfires. We want to understand the relationship between fire proximity and other variables such as speed, altitude, and direction. The outcome modeled is wildfire proximity, a numeric variable, as a linear function. Birds with higher proximity to fires correlate to have a higher degrees counterclockwise from the east. For each one-degree counterclockwise increase in direction relative to the east, the model predicts that the distance to the nearest wildfire decreases by approximately 0.059 miles with a 95% confidence interval ranging from -0.096 to -0.021.

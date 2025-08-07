@@ -3,3 +3,8 @@ title: "Sources"
 format: html
 ---
 
+Both the [bird migration dataset](https://www.kaggle.com/datasets/turhancankargin/bird-migration) and [wildfires dataset](https://www.kaggle.com/datasets/mohammadrahdanmofrad/scars-of-the-earth-over-22-million-disasters) used in this project came from the website Kaggle.
+
+Wildfires were filtered to between July 14, 2013 and May 30, 2014. Wildfire data was kept only near the bird migration paths, which means I deleted the data outside of an invisible rectangular bounding box of the wildfires. I also filtered wildfires that occurred 7 days before arrival. Wildfires that were 611 miles near any bird are also deleted.
+
+I removed rows that have missing or not properly converted latitude/longitude/date values in both bird and wildfire datasets.

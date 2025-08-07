@@ -10,7 +10,7 @@ $$
 
 **Fitted**
 $$
-\hat{y} = 0.244 + 0.159 \cdot \text{speed\_2d} - 0.284 \cdot \text{altitude} - 0.0209 \cdot \text{direction}
+\hat{y} = 0.018 + 0.007 \cdot \text{speed\_2d} + 0.030 \cdot \text{altitude} - 0.059 \cdot \text{direction}
 $$
 
 **Statistics**
@@ -89,9 +89,10 @@ lm_model <- lm(distance_to_fire_m ~ speed_2d + altitude + direction, data = trai
 
 # nice-looking and neat table
 tidy_table <- tidy(lm_model, conf.int = TRUE) %>%
-  select(term, estimate, conf.low, conf.high)
+  mutate(conf.int = paste(round(conf.low, 3), round(conf.high, 3), sep = ", ")) %>%
+  select(term, estimate, conf.int)
 
 kable(tidy_table, digits = 3, caption = "Linear Model Summary with Confidence Intervals")
 ```
 
-This linear regression model predicts wildfire proximity relative to a bird using speed, altutude, and direction predictors. The `direction` term when increased by 1 unit decreases the wildfire proximity by -0.059, with a confidence interval between -0.096	and -0.021. The confidence interval does not pass through 0, making this term significant.
+This linear regression model predicts wildfire proximity relative to a bird using speed, altutude, and direction predictors. The `direction` term when increased by 1 unit decreases the wildfire proximity by 0.059, with a 95% confidence interval between -0.096	and -0.021. The confidence interval does not pass through 0, making this term significant.
