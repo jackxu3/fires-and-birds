@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "The Effects of Wildfires on Bird Migration Routes",
     "section": "",
-    "text": "Summary\nWildfires have been affecting migratory routes of birds. I downloaded two datasets from Kaggle about gull migration and global wildfires. We want to understand the relationship between fire proximity and other variables such as speed, altitude, and direction. The outcome modeled is wildfire proximity, a numeric variable, as a linear function of speed, altitude, and direction. Birds with higher proximity to fires were more likely to be have a lower altitude. For each one-degree counterclockwise increase in direction relative to the east, the model predicts that the distance to the nearest wildfire decreases by approximately 0.059 units with a 95% confidence interval ranging from -0.096 to -0.021."
+    "text": "Summary\nWildfires have been affecting migratory routes of birds. I downloaded two datasets from Kaggle about gull migration and global wildfires. We want to understand the relationship between fire proximity and other variables such as speed, altitude, and direction. The outcome modeled is wildfire proximity, a numeric variable, as a linear function. Birds with higher proximity to fires were more likely to be have a lower altitude. For each one-degree counterclockwise increase in direction relative to the east, the model predicts that the distance to the nearest wildfire decreases by approximately 0.059 units with a 95% confidence interval ranging from -0.096 to -0.021."
   },
   {
     "objectID": "model.html",
@@ -25,6 +25,6 @@
     "href": "sources.html",
     "title": "Sources",
     "section": "",
-    "text": "I got the bird migration dataset and wildfires dataset from Kaggle.\nI just kept the data nearby the bird trackings, but I deleted all data outside the rectangular box"
+    "text": "I got the bird migration dataset and wildfires dataset from Kaggle.\nI only kept the data nearby the bird trackings, but I deleted all data outside the rectangular box."
   }
 ]
