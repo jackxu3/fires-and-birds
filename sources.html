@@ -142,7 +142,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Both the <a href="https://www.kaggle.com/datasets/turhancankargin/bird-migration">bird migration dataset</a> and <a href="https://www.kaggle.com/datasets/mohammadrahdanmofrad/scars-of-the-earth-over-22-million-disasters">wildfires dataset</a> used in this project came from the website Kaggle.</p>
-<p>I only kept the data nearby the bird trackings, but I deleted the data outside the invisible rectangular bounding box of the wildfires.</p>
+<p>Wildfires were filtered to between July 14, 2013 and May 30, 2014. Wildfire data was kept only near the bird migration paths, which means I deleted the data outside of an invisible rectangular bounding box of the wildfires. I also filtered wildfires that occurred 7 days before arrival. Wildfires that were 611 miles near any bird are also deleted.</p>
+<p>I removed rows that have missing or not properly converted latitude/longitude/date values in both bird and wildfire datasets.</p>
 
 
 
