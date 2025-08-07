@@ -7,10 +7,24 @@
     "text": "I am Jack Xu, a thirteen year old who loves birds!\nMy GitHub account: https://www.github.com/jackxu3\nMy email: bluebird.jack.xu@gmail.com\nMy project is about predicting wildfire proximity affects migratory birds with altitude, speed, and direction. The underlying R code of the plots were written by AI tools.\nGitHub repository link: https://github.com/jackxu3/fires-and-birds\nThis project was created as a part of Kane’s Free Data Science Bootcamp."
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "The Effects of Wildfires on Bird Migration Routes",
+    "section": "",
+    "text": "Summary\nWildfires have been affecting migratory routes of birds. I downloaded two datasets from Kaggle about gull migration and global wildfires. We want to understand the relationship between fire proximity and other variables such as speed, altitude, and direction. The outcome modeled is wildfire proximity, a numeric variable, as a linear function of speed, altitude, and direction. Birds with higher proximity to fires were more likely to be have a lower altitude. For each one-degree counterclockwise increase in direction relative to the east, the model predicts that the distance to the nearest wildfire decreases by approximately 0.059 units with a 95% confidence interval ranging from -0.096 to -0.021."
+  },
+  {
     "objectID": "model.html",
     "href": "model.html",
     "title": "Model",
     "section": "",
-    "text": "Linear Regression Model \\[\ny = \\beta_0 + \\beta_1 \\cdot \\text{speed\\_2d} + \\beta_2 \\cdot \\text{altitude} + \\beta_3 \\cdot \\text{direction}\n\\]\nFitted \\[\n\\hat{y} = 0.244 + 0.159 \\cdot \\text{speed\\_2d} - 0.284 \\cdot \\text{altitude} - 0.0209 \\cdot \\text{direction}\n\\]\nStatistics\n\n\n# A tibble: 4 × 7\n  term        estimate std.error statistic p.value conf.low conf.high\n  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)   0.244      0.219     1.11  0.275     -0.204    0.691 \n2 speed_2d      0.159      0.136     1.17  0.251     -0.118    0.436 \n3 altitude     -0.284      0.101    -2.80  0.00885   -0.491   -0.0768\n4 direction    -0.0209     0.144    -0.145 0.886     -0.315    0.273"
+    "text": "Linear Regression Model \\[\ny = \\beta_0 + \\beta_1 \\cdot \\text{speed\\_2d} + \\beta_2 \\cdot \\text{altitude} + \\beta_3 \\cdot \\text{direction}\n\\]\nFitted \\[\n\\hat{y} = 0.244 + 0.159 \\cdot \\text{speed\\_2d} - 0.284 \\cdot \\text{altitude} - 0.0209 \\cdot \\text{direction}\n\\]\nStatistics\n\n\n\nLinear Model Summary with Confidence Intervals\n\n\nterm\nestimate\nconf.low\nconf.high\n\n\n\n\n(Intercept)\n0.018\n-0.020\n0.056\n\n\nspeed_2d\n0.007\n-0.044\n0.059\n\n\naltitude\n0.030\n-0.007\n0.068\n\n\ndirection\n-0.059\n-0.096\n-0.021\n\n\n\n\n\nThis linear regression model predicts wildfire proximity relative to a bird using speed, altutude, and direction predictors. The direction term when increased by 1 unit decreases the wildfire proximity by 0.059, with a 95% confidence interval between -0.096 and -0.021. The confidence interval does not pass through 0, making this term significant."
+  },
+  {
+    "objectID": "sources.html",
+    "href": "sources.html",
+    "title": "Sources",
+    "section": "",
+    "text": "I got the bird migration dataset and wildfires dataset from Kaggle.\nI just kept the data nearby the bird trackings, but I deleted all data outside the rectangular box"
   }
 ]
